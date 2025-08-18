@@ -11,13 +11,16 @@ import XCTest
 final class SignUpTestCases: XCTestCase {
     
     var signUpViewController: SignUpViewController!
+    var loginViewController: LoginViewController!
     
     override func setUpWithError() throws {
        signUpViewController = SignUpViewController()
+        loginViewController = LoginViewController()
     }
 
     override func tearDownWithError() throws {
         signUpViewController = nil
+        loginViewController = nil
     }
     
     func testValidateValueifPresent() {
@@ -38,6 +41,21 @@ final class SignUpTestCases: XCTestCase {
     func testValidateLength(){
         XCTAssertEqual(signUpViewController?.validateLength("123456"),true)
         XCTAssertEqual(signUpViewController?.validateLength("123"),false)
+    }
+    
+    func testLoginEmailFormat(){
+        XCTAssertEqual(loginViewController?.validateFormat("dbathini@luc.edu"),false)
+        XCTAssertEqual(loginViewController?.validateFormat("dbathini@gmail.com"),true)
+    }
+    
+    func testLoginPasswordLength(){
+        XCTAssertEqual(loginViewController?.validateLength("123456"),true)
+        XCTAssertEqual(loginViewController?.validateLength("123"),false)
+    }
+    
+    func testLoginValidateValueifPresent() {
+        XCTAssertEqual(loginViewController?.validateValueifPresent(""),false)
+        XCTAssertEqual(loginViewController?.validateValueifPresent("dbathini@luc.edu"),true)
     }
     
 }

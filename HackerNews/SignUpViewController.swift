@@ -17,7 +17,11 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var confirmPassword: UITextField!
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
     
+    //MARK: Validate if the value is present
     func validateValueifPresent(_ field: String) -> Bool{
         if field.isEmpty {
             return false
@@ -25,14 +29,17 @@ class SignUpViewController: UIViewController {
         return true
     }
     
+    //MARK: Validate Password Match
     func validateMatch(_ password: String, _ confirmPassword: String) -> Bool {
         return password == confirmPassword
     }
     
+    //MARK: Validate Email Format
     func validateFormat(_ email: String) -> Bool {
         return email.lowercased().hasSuffix("@gmail.com")
     }
     
+    //MARK: Validate Length
     func validateLength(_ password: String) -> Bool {
         if password.count < 4 {
             return false
@@ -40,24 +47,31 @@ class SignUpViewController: UIViewController {
         return true
     }
     
-    @IBAction func signupAction(_ sender: Any) {
-        print("Sign up button has been clicked")
-        if !validateValueifPresent(firstName.text!) && !validateValueifPresent(lastName.text!) && !validateValueifPresent(email.text!) && !validateValueifPresent(password.text!) && !validateValueifPresent(confirmPassword.text!) {
+    //MARK: Validate User
+    func validateUser(_ firstname: String, _ lastname: String, _ email: String, _ password: String, _ confirmPassword: String){
+        if !validateValueifPresent(firstname) && !validateValueifPresent(lastname) && !validateValueifPresent(email) && !validateValueifPresent(password) && !validateValueifPresent(confirmPassword) {
             print("Enter one of the missing fields")
             return
         }
  
-        if !validateFormat(email.text!) {
+        if !validateFormat(email) {
             print("Email must be in the format of username@gmail.com")
             return
         }
-        if !validateLength(password.text!) {
+        if !validateLength(password) {
             print("Password must be at least 4 characters long")
         }
-        if !validateMatch(password.text!, confirmPassword.text!) {
+        if !validateMatch(password, confirmPassword) {
             print("Passwords do not match")
             return
         }
+    }
+    
+    //MARK: Signup Action
+    @IBAction func signupAction(_ sender: Any) {
+        validateUser(firstName.text!, lastName.text!, email.text!, password.text!, confirmPassword.text!)
+        print("Sign up Successful")
+        
     }
 
 }

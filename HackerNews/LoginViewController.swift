@@ -9,33 +9,53 @@ import UIKit
 
 class LoginViewController: UIViewController {
     
-    
     @IBOutlet weak var email: UITextField!
-    
     @IBOutlet weak var password: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        print("Login View Controller")
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    //MARK: Check if the value is present
+    func validateValueifPresent(_ field: String) -> Bool{
+        if field.isEmpty {
+            return false
+        }
+        return true
     }
-    */
     
+    //MARK: Validate the email format
+    func validateFormat(_ email: String) -> Bool {
+        return email.lowercased().hasSuffix("@gmail.com")
+    }
+    
+    //MARK: Validate the length
+    func validateLength(_ password: String) -> Bool {
+        if password.count < 4 {
+            return false
+        }
+        return true
+    }
+    
+    //MARK: Validate User
+    func validateUser(_ email: String, _ password: String) {
+        if !validateValueifPresent(email) && !validateValueifPresent(password) {
+            print("Enter one of the missing fields")
+            return
+        }
+        if !validateFormat(email) {
+            print("Email must be in the format of username@gmail.com")
+            return
+        }
+        if !validateLength(password) {
+            print("Password must be at least 4 characters long")
+            return
+        }
+    }
+    
+    //MARK: Login Action
     @IBAction func loginAction(_ sender: Any) {
-        print("Login button has been pressed")
-        print("Email: \(email.text ?? "") \n Password: \(password.text ?? "")")
-        
+        validateUser(email.text!,password.text!)
+        print("Login Successful!")
     }
-
 }
