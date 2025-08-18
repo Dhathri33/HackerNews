@@ -9,7 +9,6 @@ import UIKit
 import Foundation
 
 class SignUpViewController: UIViewController {
-
     
     @IBOutlet weak var firstName: UITextField!
     @IBOutlet weak var lastName: UITextField!
@@ -20,8 +19,17 @@ class SignUpViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+
+    //MARK: Signup Action
     
-    //MARK: Validate if the value is present
+    @IBAction func signupAction(_ sender: Any) {
+        validateUser(firstName.text!, lastName.text!, email.text!, password.text!, confirmPassword.text!)
+        print("Sign up Successful")
+        
+    }
+    
+    //MARK: Helper functions
+    
     func validateValueifPresent(_ field: String) -> Bool{
         if field.isEmpty {
             return false
@@ -29,17 +37,14 @@ class SignUpViewController: UIViewController {
         return true
     }
     
-    //MARK: Validate Password Match
     func validateMatch(_ password: String, _ confirmPassword: String) -> Bool {
         return password == confirmPassword
     }
     
-    //MARK: Validate Email Format
     func validateFormat(_ email: String) -> Bool {
         return email.lowercased().hasSuffix("@gmail.com")
     }
     
-    //MARK: Validate Length
     func validateLength(_ password: String) -> Bool {
         if password.count < 4 {
             return false
@@ -47,7 +52,6 @@ class SignUpViewController: UIViewController {
         return true
     }
     
-    //MARK: Validate User
     func validateUser(_ firstname: String, _ lastname: String, _ email: String, _ password: String, _ confirmPassword: String){
         if !validateValueifPresent(firstname) && !validateValueifPresent(lastname) && !validateValueifPresent(email) && !validateValueifPresent(password) && !validateValueifPresent(confirmPassword) {
             print("Enter one of the missing fields")
@@ -65,13 +69,6 @@ class SignUpViewController: UIViewController {
             print("Passwords do not match")
             return
         }
-    }
-    
-    //MARK: Signup Action
-    @IBAction func signupAction(_ sender: Any) {
-        validateUser(firstName.text!, lastName.text!, email.text!, password.text!, confirmPassword.text!)
-        print("Sign up Successful")
-        
     }
 
 }
