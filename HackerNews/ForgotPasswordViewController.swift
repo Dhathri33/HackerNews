@@ -16,20 +16,18 @@ class ForgotPasswordViewController: UIViewController {
         print("Forgot Password View Controller")
         // Do any additional setup after loading the view.
     }
-    
 
     @IBAction func sendCodeAction(_ sender: Any) {
-        print("Send Code Button has been pressed")
-        print("Email: \(email.text ?? "")")
+        navigateToNextVerificationScreen()
+        
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    //MARK: Helper functions
+    func navigateToNextVerificationScreen() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let nextVC = storyboard.instantiateViewController(withIdentifier: "VerificationViewController") as! VerificationViewController
+        navigationController?.pushViewController(nextVC, animated: true)
     }
-    */
+    
 
 }

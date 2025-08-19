@@ -15,23 +15,18 @@ class VerificationViewController: UIViewController {
     @IBOutlet weak var fourthDigit: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
     
     @IBAction func verifyAction(_ sender: Any) {
-        print("Continue Button Clicked")
-        print("First Digit: \(firstDigit.text ?? "") Second Digit: \(secondDigit.text ?? "") Third Digit: \(thirdDigit.text ?? "") Fourth Digit: \(fourthDigit.text ?? "")")
+        navigateToNextCreatePasswordScreen()
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    //MARK: Helper Functions
+    
+    func navigateToNextCreatePasswordScreen( ) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let createPasswordVC = storyboard.instantiateViewController(withIdentifier: "CreatePasswordViewController") as! CreatePasswordViewController
+        navigationController?.pushViewController(createPasswordVC, animated: true)
     }
-    */
 
 }

@@ -28,6 +28,8 @@ class SignUpViewController: UIViewController {
         
     }
     
+    
+    
     //MARK: Helper functions
     
     func validateValueifPresent(_ field: String) -> Bool{

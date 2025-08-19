@@ -16,7 +16,26 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
     }
     
-    //MARK: Check if the value is present
+    //MARK: Login Action
+
+    @IBAction func loginAction(_ sender: Any) {
+        validateUser(email.text!,password.text!)
+        print("Login Successful!")
+    }
+    
+    @IBAction func forgotPasswordAction(_ sender: Any) {
+        navigateToNextForgotPasswordScreen( )
+    }
+    
+    //MARK: Helper Functions
+    
+    func navigateToNextForgotPasswordScreen() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let forgotPasswordViewController = storyboard.instantiateViewController(withIdentifier: "ForgotPasswordViewController") as? ForgotPasswordViewController {
+            self.navigationController?.pushViewController(forgotPasswordViewController, animated: true)
+        }
+    }
+    
     func validateValueifPresent(_ field: String) -> Bool{
         if field.isEmpty {
             return false
@@ -52,10 +71,4 @@ class LoginViewController: UIViewController {
             return
         }
     }
-    
-    //MARK: Login Action
-    @IBAction func loginAction(_ sender: Any) {
-        validateUser(email.text!,password.text!)
-        print("Login Successful!")
     }
-}

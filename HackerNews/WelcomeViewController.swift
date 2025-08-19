@@ -16,12 +16,25 @@ class WelcomeViewController: UIViewController {
     }
 
     @IBAction func signUpAction(_ sender: Any) {
-        print("Sign Up button has been pressed")
+        navigateToNextSignUpScreen()
     }
     
     @IBAction func loginAction(_ sender: Any) {
-        print("Log In button has been pressed")
+        navigateToNextLoginScreen( )
     }
     
+    func navigateToNextSignUpScreen() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let signUpViewController = storyboard.instantiateViewController(withIdentifier: "SignUpViewController") as? SignUpViewController {
+            self.navigationController?.pushViewController(signUpViewController, animated: true)
+        }
+    }
+    
+    func navigateToNextLoginScreen() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let loginViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController {
+            self.navigationController?.pushViewController(loginViewController, animated: true)
+        }
+    }
 }
 

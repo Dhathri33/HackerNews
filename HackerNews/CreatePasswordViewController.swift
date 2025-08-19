@@ -15,30 +15,17 @@ class CreatePasswordViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        print("Create Password View Controller")
-        
     }
     
     @IBAction func resetPasswordAction(_ sender: Any) {
-        print("Reset Password Button has been pressed")
-        if(newPassword.text == confirmPassword.text){
-            print("Password matches")
-        }
-        else{
-            print("Password does not match")
-        }
+        navigateToNextPasswordChanged()
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    //MARK: Helper Functions
+    
+    func navigateToNextPasswordChanged() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let nextVC = storyboard.instantiateViewController(withIdentifier: "PasswordChangedViewController")
+        self.navigationController?.pushViewController(nextVC, animated: true)
     }
-    */
-
 }

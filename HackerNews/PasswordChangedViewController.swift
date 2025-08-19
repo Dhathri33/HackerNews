@@ -17,17 +17,13 @@ class PasswordChangedViewController: UIViewController {
     }
     
     @IBAction func backToLoginAction(_ sender: Any) {
-        print("Back to Login button has been pressed")
+        navigateToNextLoginScreen()
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    // MARK: Helper Functions
+    func navigateToNextLoginScreen() {
+        let loginViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+        self.navigationController?.pushViewController(loginViewController, animated: true)
     }
-    */
 
 }
