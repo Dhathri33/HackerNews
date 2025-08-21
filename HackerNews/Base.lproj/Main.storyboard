@@ -796,6 +796,21 @@
             </objects>
             <point key="canvasLocation" x="6153" y="1713"/>
         </scene>
+        <!--New Password Changed View Controller-->
+        <scene sceneID="cLy-N1-8bi">
+            <objects>
+                <viewController storyboardIdentifier="NewPasswordChangedViewController" id="umq-aa-Ors" customClass="NewPasswordChangedViewController" customModule="HackerNews" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="HPm-YU-8EW">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="eWL-QU-HII"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7Fn-i6-zhz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6848" y="1727"/>
+        </scene>
         <!--Verification View Controller-->
         <scene sceneID="gCR-5T-yZF">
             <objects>
