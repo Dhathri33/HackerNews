@@ -23,7 +23,7 @@ class NewVerificationViewController: UIViewController {
     func setupUI() {
         view.backgroundColor = .black
         
-        let titleLabel = UILabel()
+        titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.font = .systemFont(ofSize: 30, weight: .bold)
 
@@ -37,7 +37,7 @@ class NewVerificationViewController: UIViewController {
         ))
         titleLabel.attributedText = text
         
-        let subTitleLabel = UILabel()
+        subTitleLabel = UILabel()
         subTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         subTitleLabel.font = .systemFont(ofSize: 14)
         subTitleLabel.numberOfLines = 0

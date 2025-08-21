@@ -811,6 +811,21 @@
             </objects>
             <point key="canvasLocation" x="6848" y="1727"/>
         </scene>
+        <!--New Login View Controller-->
+        <scene sceneID="2qZ-jc-dh5">
+            <objects>
+                <viewController storyboardIdentifier="NewLoginViewController" id="pVX-E0-UXm" customClass="NewLoginViewController" customModule="HackerNews" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="uNH-2I-j69">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="Iu9-6V-SvB"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="afm-oT-ws2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7520" y="1727"/>
+        </scene>
         <!--Verification View Controller-->
         <scene sceneID="gCR-5T-yZF">
             <objects>
