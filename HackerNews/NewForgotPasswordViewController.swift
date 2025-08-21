@@ -78,6 +78,7 @@ class NewForgotPasswordViewController: UIViewController {
         sendCodeButton.titleLabel?.font = .boldSystemFont(ofSize: 15)
         sendCodeButton.layer.cornerRadius = 6
         sendCodeButton.contentHorizontalAlignment = .leading
+        sendCodeButton.addTarget(self, action: #selector(sendCodeAction), for: .touchUpInside)
 
         // Title: side-by-side
         let titleStack = UIStackView(arrangedSubviews: [titleLabel, titleLabel2])
@@ -106,7 +107,17 @@ class NewForgotPasswordViewController: UIViewController {
             sendCodeButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
-
+    // Send Code Button Action
+    @objc func sendCodeAction() {
+        navigateToNextVerificationScreen()
+        
+    }
     
+    //MARK: Helper functions
+    func navigateToNextVerificationScreen() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let nextVC = storyboard.instantiateViewController(withIdentifier: "NewVerificationViewController") as! NewVerificationViewController
+        navigationController?.pushViewController(nextVC, animated: true)
+    }
 
 }
