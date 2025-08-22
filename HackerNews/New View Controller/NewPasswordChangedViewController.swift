@@ -35,7 +35,7 @@ class NewPasswordChangedViewController: UIViewController {
         titleLabel.text = "Password Changed!"
         
         subtitleLabel = UILabel()
-        subtitleLabel.text = "Your password has been changed successfully."
+        subtitleLabel.text = "Your password has been changed\n successfully."
         subtitleLabel.numberOfLines = 0
         subtitleLabel.font = .systemFont(ofSize: 14)
         subtitleLabel.textColor = .white
