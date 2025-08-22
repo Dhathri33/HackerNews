@@ -16,12 +16,52 @@ class NewLoginViewController: UIViewController {
     var emailTextField: UITextField!
     var passwordLabel: UILabel!
     var passwordTextField: UITextField!
+    var helpersRow: UIStackView!
+    var rememberButton: UIButton!
+    var forgotButton: UIButton!
     var loginButton: UIButton!
-
+    var leftLine: UILabel!
+    var rightLine: UILabel!
+    var orLabel: UILabel!
+    var dividerRow: UIStackView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
     }
+    
+    @objc private func toggleRemember() {
+            rememberButton.isSelected.toggle()
+        }
+    
+    @objc private func forgotTapped() {
+           navigateToNextForgotPasswordScreen()
+        }
+    
+    //MARK: Helper functions
+    func navigateToNextForgotPasswordScreen() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let nextVC = storyboard.instantiateViewController(withIdentifier: "NewForgotPasswordViewController") as! NewForgotPasswordViewController
+        navigationController?.pushViewController(nextVC, animated: true)
+    }
+    
+    private func makeSocialButton(image: UIImage?, templated: Bool = false) -> UIButton {
+        let b = UIButton(type: .custom)
+        b.translatesAutoresizingMaskIntoConstraints = false
+        let img = templated ? image?.withRenderingMode(.alwaysTemplate) : image?.withRenderingMode(.alwaysOriginal)
+        b.setImage(img, for: .normal)
+        b.imageView?.contentMode = .scaleAspectFit
+        b.tintColor = .white
+        b.backgroundColor = UIColor.white.withAlphaComponent(0.08)
+        b.layer.cornerRadius = 10
+        NSLayoutConstraint.activate([
+            b.widthAnchor.constraint(equalToConstant: 44),
+            b.heightAnchor.constraint(equalToConstant: 44)
+        ])
+        return b
+    }
+    
+    func onePixel() -> CGFloat { 1 / UIScreen.main.scale }
     
     func setupUI(){
         view.backgroundColor = .black
@@ -46,6 +86,12 @@ class NewLoginViewController: UIViewController {
         subtitleLabel.numberOfLines = 0
         subtitleLabel.textColor = .white
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        profileImageView = UIImageView()
+        profileImageView.image = UIImage(systemName: "person.circle.fill")
+        profileImageView.contentMode = .scaleAspectFit
+        profileImageView.tintColor = .systemGray
+        profileImageView.translatesAutoresizingMaskIntoConstraints = false
 
         
         emailLabel = UILabel()
@@ -76,7 +122,6 @@ class NewLoginViewController: UIViewController {
         passwordLabel.textColor = .white
         passwordLabel.translatesAutoresizingMaskIntoConstraints = false
 
-        
         passwordTextField = UITextField()
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
         passwordTextField.borderStyle = .roundedRect
@@ -91,6 +136,36 @@ class NewLoginViewController: UIViewController {
                 .font: UIFont.systemFont(ofSize: 14)
             ]
         )
+        
+        rememberButton = UIButton(type: .custom)
+        rememberButton.backgroundColor = .clear
+        rememberButton.setTitle(" Remember my login", for: .normal)
+        rememberButton.setTitleColor(.white, for: .normal)
+        rememberButton.setTitleColor(.white, for: .selected)
+        rememberButton.titleLabel?.font = .systemFont(ofSize: 14)
+        rememberButton.tintColor = .systemRed
+        rememberButton.setImage(UIImage(systemName: "square"), for: .normal)
+        rememberButton.setImage(UIImage(systemName: "checkmark.square.fill"), for: .selected)
+        rememberButton.contentHorizontalAlignment = .leading
+        rememberButton.addTarget(self, action: #selector(toggleRemember), for: .touchUpInside)
+
+        forgotButton = UIButton(type: .system)
+        forgotButton.translatesAutoresizingMaskIntoConstraints = false
+        forgotButton.setTitle("Forgot Password?", for: .normal)
+        forgotButton.setTitleColor(.systemBlue, for: .normal)
+        forgotButton.titleLabel?.font = .systemFont(ofSize: 14, weight: .semibold)
+        forgotButton.addTarget(self, action: #selector(forgotTapped), for: .touchUpInside)
+
+        let spacer = UIView()
+        helpersRow = UIStackView(arrangedSubviews: [rememberButton, spacer, forgotButton])
+        helpersRow.axis = .horizontal
+        helpersRow.alignment = .center
+        helpersRow.spacing = 12
+        helpersRow.translatesAutoresizingMaskIntoConstraints = false
+        spacer.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        spacer.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        forgotButton.setContentHuggingPriority(.required, for: .horizontal)
+        
         loginButton = UIButton(type: .system)
         loginButton.setTitle("Log in", for: .normal)
         loginButton.translatesAutoresizingMaskIntoConstraints = false
@@ -101,14 +176,52 @@ class NewLoginViewController: UIViewController {
         loginButton.contentHorizontalAlignment = .center
         loginButton.titleLabel?.textAlignment = .center
         
+        //  Divider row
+        let leftLine  = UIView()
+        let rightLine = UIView()
+        [leftLine, rightLine].forEach { line in
+            line.translatesAutoresizingMaskIntoConstraints = false
+            line.backgroundColor = UIColor.white
+            line.setContentHuggingPriority(.defaultLow, for: .horizontal)
+            line.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        }
+
+        let orLabel = UILabel()
+        orLabel.text = "Or Login with"
+        orLabel.textColor = UIColor.white.withAlphaComponent(0.8)
+        orLabel.font = .systemFont(ofSize: 13, weight: .medium)
+        orLabel.setContentHuggingPriority(.required, for: .horizontal)
+
+        let dividerRow = UIStackView(arrangedSubviews: [leftLine, orLabel, rightLine])
+        dividerRow.axis = .horizontal
+        dividerRow.alignment = .center
+        dividerRow.spacing = 12
+        dividerRow.translatesAutoresizingMaskIntoConstraints = false
+        
+        // ========== NEW: Social row ==========
+        let fbBtn     = makeSocialButton(image: UIImage(named: "f.cursive"))
+        let googleBtn = makeSocialButton(image: UIImage(named: "g.square.fill"))
+        let appleBtn  = makeSocialButton(image: UIImage(systemName: "apple.logo"),
+            templated: true)
+
+        let socialRow = UIStackView(arrangedSubviews: [fbBtn, googleBtn, appleBtn])
+        socialRow.axis = .horizontal
+        socialRow.alignment = .center
+        socialRow.distribution = .equalSpacing
+        socialRow.spacing = 24
+        socialRow.translatesAutoresizingMaskIntoConstraints = false
+
+        
         // Vertical layout
-        let vStack = UIStackView(arrangedSubviews: [titleLabel, subtitleLabel, emailLabel, emailTextField, passwordLabel, passwordTextField,    loginButton])
+        let vStack = UIStackView(arrangedSubviews: [titleLabel, subtitleLabel, profileImageView, emailLabel, emailTextField, passwordLabel, passwordTextField, helpersRow,   loginButton, dividerRow, socialRow])
         vStack.axis = .vertical
         vStack.spacing = 20
         vStack.translatesAutoresizingMaskIntoConstraints = false
         vStack.setCustomSpacing(50, after: subtitleLabel)
         vStack.setCustomSpacing(4, after: passwordLabel)
         vStack.setCustomSpacing(4, after: emailLabel)
+        vStack.setCustomSpacing(50, after: subtitleLabel)
+        vStack.setCustomSpacing(50, after: profileImageView)
         view.addSubview(vStack)
 
         NSLayoutConstraint.activate([
@@ -117,10 +230,17 @@ class NewLoginViewController: UIViewController {
             vStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 32),
             emailTextField.heightAnchor.constraint(equalToConstant: 50),
             passwordTextField.heightAnchor.constraint(equalToConstant: 50),
-            loginButton.heightAnchor.constraint(equalToConstant: 50)
+            loginButton.heightAnchor.constraint(equalToConstant: 50),
+            profileImageView.widthAnchor
+                .constraint(equalToConstant: 350),
+            profileImageView.heightAnchor
+                .constraint(equalToConstant: 128),
+            leftLine.heightAnchor.constraint(equalToConstant: onePixel()),
+            rightLine.heightAnchor.constraint(equalToConstant: onePixel()),
+            leftLine.widthAnchor.constraint(equalTo: rightLine.widthAnchor)
+            
         ])
         
     }
-    
 
 }
